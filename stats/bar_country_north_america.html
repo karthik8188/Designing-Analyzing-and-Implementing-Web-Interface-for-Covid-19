@@ -1,0 +1,215 @@
+<html>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="table.php" class="w3-bar-item w3-button w3-wide">STATS</a>
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+  <head>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  
+<script>
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart2);
+    google.charts.setOnLoadCallback(drawChart3);
+   
+    var ajax = new XMLHttpRequest();
+    ajax.open("GET", "faired_countries.php", false);
+    ajax.send();
+
+
+
+    ajax.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var data = JSON.parse(this.responseText);
+            
+        }
+        return data;
+    };
+
+    function drawChart(){
+        
+
+        var arr1= [
+        ["Country", "Count", { role: "style" } ],
+          ];
+          var data= ajax.onreadystatechange();
+
+          var arr5 = [];
+          
+          for(i=0; i<data.length; i++){
+              if(data[i][5]=='North_America'){
+                  arr5.push([data[i][0],Number(data[i][2]),"darkblue"]);
+              }
+          }
+          arr5=arr1.concat(arr5);
+
+          //document.write(typeof(arr5[0][1]));
+
+          var data = google.visualization.arrayToDataTable(arr5);
+          var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Confirmed cases in North America",
+        width: 500,
+        height: 1800,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+    }
+     
+    function drawChart2(){
+        
+
+        var arr1= [
+        ["Country", "Count", { role: "style" } ],
+          ];
+          var data= ajax.onreadystatechange();
+
+          var arr5 = [];
+          
+          for(i=0; i<data.length; i++){
+              if(data[i][5]=='North_America'){
+                  arr5.push([data[i][0],Number(data[i][3]),"darkgreen"]);
+              }
+          }
+          arr5=arr1.concat(arr5);
+
+          //document.write(typeof(arr5[0][1]));
+
+          var data = google.visualization.arrayToDataTable(arr5);
+          var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Recovered cases in North America",
+        width: 500,
+        height: 1800,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values2"));
+      chart.draw(view, options);
+    }  
+    function drawChart3(){
+        
+
+        var arr1= [
+        ["Country", "Count", { role: "style" } ],
+          ];
+          var data= ajax.onreadystatechange();
+
+          var arr5 = [];
+          
+          for(i=0; i<data.length; i++){
+              if(data[i][5]=='North_America'){
+                  arr5.push([data[i][0],Number(data[i][3]),"darkred"]);
+              }
+          }
+          arr5=arr1.concat(arr5);
+
+          //document.write(typeof(arr5[0][1]));
+
+          var data = google.visualization.arrayToDataTable(arr5);
+          var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Deaths in North America",
+        width: 500,
+        height: 1800,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values3"));
+      chart.draw(view, options);
+    }  
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+    
+</head>
+<body>
+  <div class="container">  
+   <div class="dropdown">  
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example  
+      <span class="caret"></span></button>  
+      <ul class="dropdown-menu">  
+        <li><a href="bar_country_africa.html">Africa</a></li>  
+        <li><a href="bar_country_asia.html">Asia</a></li>  
+        <li><a href="bar_country_australia.html">Australia</a></li>  
+        <li><a href="bar_country_europe.html">Europe</a></li>
+        <li><a href="bar_country_south_america.html">South America</a></li>    
+        <li><a href="bar_country_others.html">Others</a></li>  
+      </ul>  
+    </div>  
+  </div>  
+
+  <div class="container-fluid">
+    <div class="jumbotron"  style="padding-top:15px;padding-bottom:15px;">  
+        <h2 style="text-align: center;">North America Data</h2>        
+      </div>  
+</div>
+  <div class="container-fluid" style="align-items: center;padding-left:30px;">
+    <div class="row">
+        <div class="col-md-4">
+          <div id="barchart_values" style="width: 500px; height: 1800px;"></div>
+        </div>
+        <div class="col-md-4">
+          <div id="barchart_values2" style="width: 500px; height: 1800px;"></div>
+        </div>
+        <div class="col-md-4">
+          <div id="barchart_values3" style="width: 500px; height: 1800px;"></div>
+        </div>
+    </div>
+  </div>
+    <!--table>
+        <tr>
+            <td><div id="barchart_values" style="width: 500px; height: 1800px;"></div></td>
+            <td><div id="barchart_values2" style="width: 500px; height: 1800px;"></div></td>
+            <td><div id="barchart_values3" style="width: 500px; height: 1800px;"></div></td>
+        </tr>
+       
+    </table-->
+</body>
